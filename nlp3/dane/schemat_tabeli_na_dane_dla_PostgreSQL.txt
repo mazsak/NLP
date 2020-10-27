@@ -1,0 +1,15 @@
+CREATE TABLE public.article
+(
+    paper_id bigint NOT NULL,
+    paper_title text COLLATE pg_catalog."default",
+    keywords text COLLATE pg_catalog."default",
+    abstract text COLLATE pg_catalog."default",
+    session text COLLATE pg_catalog."default",
+    year integer,
+    CONSTRAINT article_pkey PRIMARY KEY (paper_id)
+)
+ 
+TABLESPACE pg_default;
+
+ALTER TABLE public.article
+    OWNER to postgres;
