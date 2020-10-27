@@ -1,0 +1,20 @@
+CREATE TEXT SEARCH CONFIGURATION mycfg (
+	COPY = english
+);
+
+CREATE TEXT SEARCH DICTIONARY english_ispell (
+ TEMPLATE = ispell,
+ DictFile = english,
+ AffFile = english,
+ StopWords = english
+);
+
+ALTER TEXT SEARCH CONFIGURATION mycfg
+ALTER MAPPING FOR asciiword, asciihword, hword_asciipart,word, hword, hword_part
+WITH english_ispell, english_stem;
+
+CREATE INDEX apaper_title ON article USING GIN (to_tsvector('english',paper_title));
+CREATE INDEX akeywords ON article USING GIN (to_tsvector('english',keywords));
+CREATE INDEX aabstract ON article USING GIN (to_tsvector('english',abstract));
+CREATE INDEX asession ON article USING GIN (to_tsvector('english',session));
+
