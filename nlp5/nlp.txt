@@ -1,0 +1,11 @@
+Amount sentences: 19
+Amount tokens: 513
+Mean (tokens/sentences): 27.0
+Amount nouns: 163
+Amount verbs: 47
+Amount adjectives: 53
+Amount adverbs: 18
+5 most common nouns: [('computer', 18), ('device', 13), ('operation', 6), ('MOS', 4), ('machine', 3)]
+Adjectives that define nouns:
+computer: [Modern, complete, personal, other, Early, modern]
+device: [industrial, simple, special, general, mobile, simple, manual, mechanical, Peripheral, Peripheral]
