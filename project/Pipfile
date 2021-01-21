@@ -7,6 +7,12 @@ verify_ssl = true
 
 [packages]
 pyqt5 = "*"
+pandas = "*"
+lxml = "*"
+xmltodict = "*"
+spacy = "*"
+scikit-learn = "*"
+matplotlib = "*"
 
 [requires]
 python_version = "3.6"

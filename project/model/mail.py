@@ -1,7 +1,7 @@
 from datetime import datetime
 from typing import List
 
-from addressee import Addressee
+from model.addressee import Addressee
 
 months: List[str] = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
 
@@ -15,6 +15,7 @@ class Mail:
         self.recipient: str = recipient
         self.subject: str = subject
         self.contents: str = contents
+        self.category: list = []
         if date == '':
             self.date: datetime = datetime.now()
         else:
@@ -22,8 +23,11 @@ class Mail:
             self.date: datetime = datetime(day=int(date[1]), month=months.index(date[2]) + 1, year=int(date[3]),
                                            hour=int(date[4]), minute=int(date[5]), second=int(date[6]))
 
+    def change_category(self, category: list):
+        self.category = category
+
     def __str__(self) -> str:
-        return f'<Mail: id: {self.id}, addressee: {self.addressee}, recipient: {self.recipient}, subject: {self.subject}, contents: {self.contents}, date: {self.date}>'
+        return f'<Mail: id: {self.id}, addressee: {self.addressee}, recipient: {self.recipient}, subject: {self.subject}, contents: {self.contents}, date: {self.date}, category: {self.category}>'
 
     def __repr__(self) -> str:
-        return f'<Mail: id: {self.id}, addressee: {self.addressee}, recipient: {self.recipient}, subject: {self.subject}, contents: {self.contents}, date: {self.date}>'
+        return f'<Mail: id: {self.id}, addressee: {self.addressee}, recipient: {self.recipient}, subject: {self.subject}, contents: {self.contents}, date: {self.date}, category: {self.category}>'

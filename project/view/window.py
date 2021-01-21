@@ -1,12 +1,14 @@
+import json
 from typing import List
 
 from PyQt5.QtGui import QIcon
 from PyQt5.QtWidgets import QMainWindow, QHBoxLayout, QWidget, QLabel, QVBoxLayout, QPushButton
 
 from api_mail import ApiMail
-from details_mail import DetailsMail
-from list_email import ListEmail
-from mail import Mail
+from view.details_mail import DetailsMail
+from view.list_email import ListEmail
+from model.mail import Mail
+from view.send_mail import SendMail
 
 StyleSheep = """
 QPushButton{
@@ -75,7 +77,7 @@ class Window(QMainWindow):
 
         layout: QHBoxLayout = QHBoxLayout()
 
-        self.details_email: DetailsMail = DetailsMail()
+        self.details_email: DetailsMail = DetailsMail(api)
         self.list_email: ListEmail = ListEmail(mails=mails, details=self.details_email)
 
         user: QLabel = QLabel(api.user)
@@ -107,17 +109,17 @@ class Window(QMainWindow):
         layout.setSizeConstraint(350)
 
         send: QPushButton = QPushButton(self)
-        send.setIcon(QIcon('add.png'))
+        send.setIcon(QIcon('icon/add.png'))
         send.clicked.connect(self.send_mails)
         send.setFixedWidth(115)
 
         refresh: QPushButton = QPushButton(self)
-        refresh.setIcon(QIcon('refresh.png'))
+        refresh.setIcon(QIcon('icon/refresh.png'))
         refresh.clicked.connect(self.refresh_mails)
         refresh.setFixedWidth(115)
 
         trash: QPushButton = QPushButton(self)
-        trash.setIcon(QIcon('trash.png'))
+        trash.setIcon(QIcon('icon/trash.png'))
         trash.clicked.connect(self.delete_selected_mail)
         trash.setFixedWidth(115)
 
@@ -143,5 +145,6 @@ class Window(QMainWindow):
         self.list_email.refresh(mails)
 
     def send_mails(self):
-
-        pass
+        dialog: SendMail = SendMail(self.api)
+        if dialog.exec_():
+            dialog.send()

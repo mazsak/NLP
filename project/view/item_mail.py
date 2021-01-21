@@ -1,6 +1,6 @@
 from PyQt5.QtWidgets import QWidget, QCheckBox, QLabel, QHBoxLayout, QVBoxLayout
 
-from mail import Mail
+from model.mail import Mail
 
 
 class ItemMail(QWidget):
@@ -15,7 +15,7 @@ class ItemMail(QWidget):
         self.addresseeLabel: QLabel = QLabel(mail.addressee.name + '\n')
         self.addresseeLabel.setWordWrap(True)
         self.addresseeLabel.setMaximumWidth(250)
-        self.subjectLabel: QLabel = QLabel(mail.subject)
+        self.subjectLabel: QLabel = QLabel(mail.subject + ', (' + ', '.join(mail.category) + ')')
         self.subjectLabel.setWordWrap(True)
         self.subjectLabel.setMaximumWidth(250)
 

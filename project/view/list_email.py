@@ -3,9 +3,9 @@ from typing import List
 from PyQt5.QtCore import QModelIndex
 from PyQt5.QtWidgets import QWidget, QVBoxLayout, QListWidget, QListWidgetItem
 
-from details_mail import DetailsMail
-from item_mail import ItemMail
-from mail import Mail
+from view.details_mail import DetailsMail
+from view.item_mail import ItemMail
+from model.mail import Mail
 
 
 class ListEmail(QWidget):

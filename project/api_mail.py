@@ -1,11 +1,13 @@
 import email
 import imaplib
-import smtplib
+import json
+import smtplib, ssl
 from mailbox import Message
 from typing import Union, List
 
-from addressee import Addressee
-from mail import Mail
+from classifier import Classifier
+from model.addressee import Addressee
+from model.mail import Mail
 
 
 class ApiMail:
@@ -17,6 +19,7 @@ class ApiMail:
         self.port = port
         self.server: Union[smtplib.SMTP_SSL, None] = None
         self.mail: Union[imaplib.IMAP4_SSL, None] = None
+        self.classifier: Classifier = Classifier()
 
     def login(self) -> bool:
         try:
@@ -33,7 +36,7 @@ class ApiMail:
             return False
 
     def send(self, mail: Mail) -> None:
-        pass
+        self.server.sendmail(from_addr=self.user, to_addrs=mail.addressee.address, msg=f'Subject: {mail.subject}\n\n{mail.contents}')
 
     def download(self) -> List[Mail]:
         self.mail.select('inbox')
@@ -62,6 +65,7 @@ class ApiMail:
                                 mail_content = message.get_payload()
                             mail: Mail = Mail(id=i, addressee=Addressee(message['from']), recipient=message['to'],
                                               subject=message['subject'], contents=mail_content, date=message['date'])
+                            mail.change_category(self.classifier.guess(mail.contents)[0])
                             mails.append(mail)
         return mails
 

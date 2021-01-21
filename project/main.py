@@ -3,7 +3,7 @@ import sys
 from PyQt5.QtWidgets import QApplication
 
 from api_mail import ApiMail
-from window import Window
+from view.window import Window
 
 server_name = 'smtp.gmail.com'
 user = 'nlp.app.project@gmail.com'
